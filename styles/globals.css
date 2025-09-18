@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-light dark:bg-gray-900 text-gray-900 dark:text-white transition-colors;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-neon to-neon-purple bg-clip-text text-transparent;
+  }
+  
+  .glow-effect {
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+  }
+  
+  /* Mobile navigation improvements */
+  .mobile-menu-open {
+    overflow: hidden;
+  }
+  
+  /* Smooth touch interactions */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:bg-gray-50:hover {
+      @apply bg-gray-50;
+    }
+    .dark .hover\:bg-gray-800:hover {
+      @apply bg-gray-800;
+    }
+  }
+  
+  /* Improve tap targets for mobile */
+  @media (max-width: 768px) {
+    .mobile-tap-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+}
