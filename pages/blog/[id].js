@@ -69,7 +69,7 @@ export default function BlogPost() {
 
   return (
     <Layout title={`${post.title} - MOSBytes`} description={post.description}>
-      <div className="min-h-screen bg-gradient-to-br from-light to-gray-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Header */}
           <motion.div

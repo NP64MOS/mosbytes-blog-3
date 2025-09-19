@@ -9,6 +9,7 @@ export default function AdminSubscribers() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterPlan, setFilterPlan] = useState('all')
+  const [filterStatus, setFilterStatus] = useState('active')
   const router = useRouter()
 
   useEffect(() => {
@@ -45,17 +46,19 @@ export default function AdminSubscribers() {
     const matchesSearch = subscriber.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          (subscriber.name && subscriber.name.toLowerCase().includes(searchTerm.toLowerCase()))
     const matchesPlan = filterPlan === 'all' || subscriber.plan === filterPlan
-    return matchesSearch && matchesPlan
+    const matchesStatus = filterStatus === 'all' || subscriber.status === filterStatus
+    return matchesSearch && matchesPlan && matchesStatus
   })
 
   const getSubscriberStats = () => {
-    const total = subscribers.length
-    const planCounts = subscribers.reduce((acc, sub) => {
+    const activeSubscribers = subscribers.filter(sub => sub.status === 'active')
+    const total = activeSubscribers.length
+    const planCounts = activeSubscribers.reduce((acc, sub) => {
       acc[sub.plan] = (acc[sub.plan] || 0) + 1
       return acc
     }, {})
     
-    const revenue = subscribers.reduce((total, sub) => {
+    const revenue = activeSubscribers.reduce((total, sub) => {
       const plan = SUBSCRIPTION_PLANS[sub.plan.toUpperCase()]
       return total + (plan ? plan.price : 0)
     }, 0)
@@ -87,6 +90,12 @@ export default function AdminSubscribers() {
             </div>
             
             <div className="flex space-x-4">
+              <button
+                onClick={() => router.push('/admin/unsubscribed')}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
+              >
+                View Unsubscribed
+              </button>
               <button
                 onClick={() => router.push('/admin/dashboard')}
                 className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
@@ -156,7 +165,16 @@ export default function AdminSubscribers() {
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
-              <div>
+              <div className="flex gap-2">
+                <select
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                >
+                  <option value="active">Active Only</option>
+                  <option value="unsubscribed">Unsubscribed Only</option>
+                  <option value="all">All Status</option>
+                </select>
                 <select
                   value={filterPlan}
                   onChange={(e) => setFilterPlan(e.target.value)}

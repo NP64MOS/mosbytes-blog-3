@@ -98,6 +98,12 @@ export default function AdminDashboard() {
                 Database
               </button>
               <button
+                onClick={() => router.push('/admin/unsubscribed')}
+                className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Unsubscribed Users
+              </button>
+              <button
                 onClick={handleLogout}
                 className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
               >

@@ -56,16 +56,19 @@ export default function SubscriptionSection() {
         viewport={{ once: true }}
       >
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-          <span className="text-gradient">Start Your AI Journey</span>
+          <span className="text-gradient">Join 10,000+ Learners</span>
         </h2>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Join our free community and start learning AI today - no credit card required!
+          Get weekly AI insights, tutorials, and exclusive resources delivered to your inbox.
+        </p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+          No spam. Unsubscribe anytime.
         </p>
       </motion.div>
 
       {/* Subscription Box */}
       <motion.div
-        className="max-w-lg mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+        className="max-w-lg mx-auto bg-gray-800/80 backdrop-blur-sm rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -77,19 +80,19 @@ export default function SubscriptionSection() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-primary dark:text-white mb-2">
-            Join MOSBytes Community
+          <h3 className="text-2xl font-bold text-white mb-2">
+            Join the AI Revolution
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Start your AI learning journey today - completely free!
+          <p className="text-gray-300 mb-6">
+            Weekly insights • Practical tutorials • Expert guidance
           </p>
         </div>
 
         {message && (
           <div className={`mb-6 p-4 rounded-lg text-sm ${
             message.includes('Successfully') 
-              ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-700'
-              : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700'
+              ? 'bg-green-900/30 text-green-300 border border-green-700'
+              : 'bg-red-900/30 text-red-300 border border-red-700'
           }`}>
             {message}
           </div>
@@ -101,26 +104,26 @@ export default function SubscriptionSection() {
             placeholder="Your name (optional)"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-gray-700 text-white"
           />
           <input
             type="email"
             placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-gray-700 text-white"
             required
           />
         </div>
 
         {/* What's Included */}
         <div className="mb-6">
-          <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 text-center">
+          <h4 className="text-sm font-semibold text-gray-300 mb-3 text-center">
             What's Included:
           </h4>
           <div className="grid grid-cols-2 gap-2 text-sm">
             {SUBSCRIPTION_PLANS.FREE.features.map((feature, index) => (
-              <div key={index} className="flex items-center text-gray-600 dark:text-gray-300">
+              <div key={index} className="flex items-center text-gray-300">
                 <svg className="w-4 h-4 text-neon mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -138,8 +141,8 @@ export default function SubscriptionSection() {
           {loading ? 'Joining...' : 'Join Free - No Credit Card Required'}
         </button>
 
-        <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-4">
-          Free forever • Unsubscribe anytime • No spam
+        <p className="text-center text-xs text-gray-400 mt-4">
+          Free forever • No spam • Unsubscribe anytime
         </p>
       </motion.div>
 
@@ -150,8 +153,8 @@ export default function SubscriptionSection() {
         transition={{ duration: 0.6, delay: 0.4 }}
         viewport={{ once: true }}
       >
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Join thousands of AI learners worldwide. Start your journey today!
+        <p className="text-sm text-gray-400">
+          Join 10,000+ learners worldwide mastering AI skills.
         </p>
       </motion.div>
     </section>
