@@ -36,9 +36,12 @@ export default function BlogPost() {
 
   if (loading) {
     return (
-      <Layout title="Loading... - MOSBytes">
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-light to-gray-50 dark:from-gray-900 dark:to-gray-800">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon"></div>
+      <Layout title="Loading... – MOSBytes">
+        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 loading-spinner mx-auto"></div>
+            <p className="text-text-secondary">Loading article...</p>
+          </div>
         </div>
       </Layout>
     )
@@ -46,21 +49,37 @@ export default function BlogPost() {
 
   if (error || !post) {
     return (
-      <Layout title="Post Not Found - MOSBytes">
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-light to-gray-50 dark:from-gray-900 dark:to-gray-800">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-primary dark:text-white mb-4">
-              Post Not Found
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
-              The blog post you're looking for doesn't exist.
-            </p>
-            <button
-              onClick={() => router.push('/blog')}
-              className="bg-gradient-to-r from-neon to-neon-purple text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+      <Layout title="Post Not Found – MOSBytes">
+        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+          <div className="container-narrow">
+            <motion.div
+              className="text-center space-y-8"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              Back to Blog
-            </button>
+              <div className="w-20 h-20 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-10 h-10 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              
+              <div className="space-y-4">
+                <h1 className="text-section-title text-cloud-white">
+                  Article Not Found
+                </h1>
+                <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
+                  The article you're looking for doesn't exist or may have been moved.
+                </p>
+              </div>
+
+              <button
+                onClick={() => router.push('/blog')}
+                className="btn-primary magnetic-hover"
+              >
+                Back to Tutorials
+              </button>
+            </motion.div>
           </div>
         </div>
       </Layout>
@@ -68,36 +87,36 @@ export default function BlogPost() {
   }
 
   return (
-    <Layout title={`${post.title} - MOSBytes`} description={post.description}>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <Layout title={`${post.title} – MOSBytes`} description={post.description}>
+      <div className="min-h-screen bg-deep-navy">
+        <article className="container-custom py-24">
           {/* Header */}
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex justify-center items-center space-x-4 mb-6">
-              <span className="inline-block px-3 py-1 text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+            <div className="flex justify-center items-center space-x-4 mb-8">
+              <span className="inline-block px-4 py-2 text-sm font-medium bg-steel-gray text-text-secondary rounded-full">
                 {post.category}
               </span>
               {post.featured && (
-                <span className="inline-block px-3 py-1 text-sm font-medium bg-neon text-white rounded-full">
+                <span className="inline-block px-4 py-2 text-sm font-medium bg-frost-blue text-deep-navy rounded-full">
                   Featured
                 </span>
               )}
             </div>
             
-            <h1 className="text-4xl sm:text-5xl font-bold text-primary dark:text-white mb-6 leading-tight">
+            <h1 className="text-hero text-cloud-white mb-8 leading-tight">
               {post.title}
             </h1>
             
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-body-large text-text-secondary mb-8 max-w-3xl mx-auto">
               {post.description}
             </p>
             
-            <div className="flex justify-center items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex justify-center items-center space-x-6 text-text-muted">
               <span>{new Date(post.date).toLocaleDateString()}</span>
               <span>•</span>
               <span>{post.readTime}</span>
@@ -106,62 +125,87 @@ export default function BlogPost() {
 
           {/* Content */}
           <motion.div
-            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-8 shadow-sm"
+            className="card-glass max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="prose prose-lg dark:prose-invert max-w-none">
+            <div className="prose prose-lg max-w-none">
               <ReactMarkdown
                 components={{
                   h1: ({ children }) => (
-                    <h1 className="text-3xl font-bold text-primary dark:text-white mb-6 mt-8">
+                    <h1 className="text-section-title text-cloud-white mb-8 mt-12 first:mt-0">
                       {children}
                     </h1>
                   ),
                   h2: ({ children }) => (
-                    <h2 className="text-2xl font-bold text-primary dark:text-white mb-4 mt-8">
+                    <h2 className="text-card-title text-cloud-white mb-6 mt-10">
                       {children}
                     </h2>
                   ),
                   h3: ({ children }) => (
-                    <h3 className="text-xl font-bold text-primary dark:text-white mb-3 mt-6">
+                    <h3 className="text-xl font-semibold text-cloud-white mb-4 mt-8">
                       {children}
                     </h3>
                   ),
                   p: ({ children }) => (
-                    <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                    <p className="text-body text-text-secondary mb-6 leading-relaxed">
                       {children}
                     </p>
                   ),
                   code: ({ children, className }) => {
                     const isInline = !className
                     return isInline ? (
-                      <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono text-neon">
+                      <code className="bg-steel-gray px-3 py-1 rounded-lg text-sm font-mono text-frost-blue">
                         {children}
                       </code>
                     ) : (
-                      <pre className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg overflow-x-auto mb-4">
-                        <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
+                      <pre className="bg-steel-gray p-6 rounded-2xl overflow-x-auto mb-6 border border-graphite/20">
+                        <code className="text-sm font-mono text-cloud-white">
                           {children}
                         </code>
                       </pre>
                     )
                   },
                   ul: ({ children }) => (
-                    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300">
+                    <ul className="list-disc list-inside mb-6 space-y-3 text-text-secondary">
                       {children}
                     </ul>
                   ),
                   ol: ({ children }) => (
-                    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300">
+                    <ol className="list-decimal list-inside mb-6 space-y-3 text-text-secondary">
                       {children}
                     </ol>
                   ),
+                  li: ({ children }) => (
+                    <li className="text-text-secondary leading-relaxed">
+                      {children}
+                    </li>
+                  ),
                   blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-neon pl-4 italic text-gray-600 dark:text-gray-400 mb-4">
+                    <blockquote className="border-l-4 border-frost-blue pl-6 py-4 bg-frost-blue/5 rounded-r-2xl italic text-text-secondary mb-6 my-8">
                       {children}
                     </blockquote>
+                  ),
+                  strong: ({ children }) => (
+                    <strong className="text-cloud-white font-semibold">
+                      {children}
+                    </strong>
+                  ),
+                  em: ({ children }) => (
+                    <em className="text-frost-blue">
+                      {children}
+                    </em>
+                  ),
+                  a: ({ children, href }) => (
+                    <a 
+                      href={href} 
+                      className="text-frost-blue hover:text-frost-light underline decoration-frost-blue/50 hover:decoration-frost-light transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {children}
+                    </a>
                   ),
                 }}
               >
@@ -172,32 +216,74 @@ export default function BlogPost() {
 
           {/* Navigation */}
           <motion.div
-            className="flex justify-between items-center mt-12"
+            className="flex flex-col sm:flex-row justify-between items-center mt-16 space-y-6 sm:space-y-0 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <button
               onClick={() => router.push('/blog')}
-              className="flex items-center text-primary dark:text-white hover:text-neon transition-colors"
+              className="flex items-center text-cloud-white hover:text-frost-blue transition-colors group"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
               </svg>
-              Back to Blog
+              Back to Tutorials
             </button>
             
             <div className="flex space-x-4">
-              <button className="text-gray-500 hover:text-neon transition-colors">
+              <motion.button 
+                className="p-3 text-text-secondary hover:text-frost-blue hover:bg-frost-blue/10 rounded-xl transition-all duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title="Share Article"
+              >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                 </svg>
-              </button>
-              <button className="text-gray-500 hover:text-neon transition-colors">
+              </motion.button>
+              
+              <motion.button 
+                className="p-3 text-text-secondary hover:text-frost-blue hover:bg-frost-blue/10 rounded-xl transition-all duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title="Bookmark Article"
+              >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                 </svg>
-              </button>
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Related Articles CTA */}
+          <motion.div
+            className="mt-20 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <div className="card-glass max-w-2xl mx-auto">
+              <h3 className="text-card-title text-cloud-white mb-4">
+                Continue Learning
+              </h3>
+              <p className="text-body text-text-secondary mb-6">
+                Explore more AI insights and tutorials to expand your knowledge.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => router.push('/blog')}
+                  className="btn-primary"
+                >
+                  More Tutorials
+                </button>
+                <button
+                  onClick={() => router.push('/')}
+                  className="btn-secondary"
+                >
+                  Back to Home
+                </button>
+              </div>
             </div>
           </motion.div>
         </article>

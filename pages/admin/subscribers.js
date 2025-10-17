@@ -70,35 +70,38 @@ export default function AdminSubscribers() {
 
   if (loading) {
     return (
-      <Layout title="Manage Subscribers - MOSBytes">
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon"></div>
+      <Layout title="Manage Subscribers – MOSBytes">
+        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 loading-spinner mx-auto"></div>
+            <p className="text-text-secondary">Loading subscribers...</p>
+          </div>
         </div>
       </Layout>
     )
   }
 
   return (
-    <Layout title="Manage Subscribers - MOSBytes">
-      <div className="min-h-screen bg-gradient-to-br from-light to-gray-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Layout title="Manage Subscribers – MOSBytes">
+      <div className="min-h-screen bg-deep-navy">
+        <div className="container-custom py-12">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-primary dark:text-white">Manage Subscribers</h1>
-              <p className="text-gray-600 dark:text-gray-300">View and manage all subscribers</p>
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-12 space-y-6 lg:space-y-0">
+            <div className="space-y-2">
+              <h1 className="text-section-title text-cloud-white">Manage Subscribers</h1>
+              <p className="text-body text-text-secondary">View and manage all subscribers</p>
             </div>
             
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => router.push('/admin/unsubscribed')}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 View Unsubscribed
               </button>
               <button
                 onClick={() => router.push('/admin/dashboard')}
-                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="btn-secondary text-sm px-4 py-2"
               >
                 Back to Dashboard
               </button>

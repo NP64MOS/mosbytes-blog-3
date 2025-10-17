@@ -1,40 +1,25 @@
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 export default function Unsubscribe() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
-  const [reason, setReason] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [success, setSuccess] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const router = useRouter()
+  const [unsubscribed, setUnsubscribed] = useState(false)
+  const [step, setStep] = useState(1) // 1: form, 2: confirmation, 3: success
 
-  // Pre-fill email if provided in URL and check if user is admin
   useEffect(() => {
+    // Get email from URL params if provided
     if (router.query.email) {
-      setEmail(router.query.email)
+      setEmail(decodeURIComponent(router.query.email))
     }
-    // Check if user has admin token
-    const adminToken = localStorage.getItem('adminToken')
-    setIsAdmin(!!adminToken)
   }, [router.query.email])
-
-  const reasons = [
-    'Too many emails',
-    'Content not relevant',
-    'Found better alternatives',
-    'No longer interested in AI',
-    'Technical issues',
-    'Privacy concerns',
-    'Other'
-  ]
 
   const handleUnsubscribe = async (e) => {
     e.preventDefault()
-    
     if (!email) {
       setMessage('Please enter your email address')
       return
@@ -49,184 +34,304 @@ export default function Unsubscribe() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, reason }),
+        body: JSON.stringify({ email })
       })
 
       const data = await response.json()
 
       if (data.success) {
-        setSuccess(true)
-        setMessage(data.message)
+        setUnsubscribed(true)
+        setStep(3)
+        setMessage('You have been successfully unsubscribed from all emails.')
       } else {
-        setMessage(data.message || 'Failed to unsubscribe. Please try again.')
+        setMessage(data.message || 'Unable to process unsubscribe request. Please try again.')
       }
     } catch (error) {
       console.error('Unsubscribe error:', error)
-      setMessage('An error occurred. Please try again.')
+      setMessage('Network error. Please try again.')
     } finally {
       setLoading(false)
     }
   }
 
-  if (success) {
+  const handleResubscribe = async () => {
+    setLoading(true)
+    setMessage('')
+
+    try {
+      const response = await fetch('/api/resubscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setMessage('Welcome back! You have been resubscribed to our emails.')
+        setUnsubscribed(false)
+        setStep(1)
+      } else {
+        setMessage(data.message || 'Unable to resubscribe. Please try again.')
+      }
+    } catch (error) {
+      console.error('Resubscribe error:', error)
+      setMessage('Network error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (step === 3 && unsubscribed) {
     return (
-      <Layout title="Unsubscribed - MOSBytes" description="You have been successfully unsubscribed">
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center px-4">
-          <motion.div
-            className="max-w-md w-full bg-white/10 backdrop-blur-sm rounded-xl p-8 text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            
-            <h1 className="text-2xl font-bold text-white mb-4">
-              Successfully Unsubscribed
-            </h1>
-            
-            <p className="text-gray-300 mb-6">
-              We're sorry to see you go! You have been removed from our mailing list and will no longer receive emails from MOSBytes.
-            </p>
-            
-            <div className="space-y-4">
-              {isAdmin ? (
-                <button
-                  onClick={() => router.push('/admin/unsubscribed')}
-                  className="w-full bg-gradient-to-r from-neon to-neon-purple text-white py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+      <Layout 
+        title="Unsubscribed Successfully – MOSBytes"
+        description="You have been successfully unsubscribed from MOSBytes emails."
+      >
+        <div className="min-h-screen bg-deep-navy flex items-center justify-center py-12">
+          <div className="container-narrow">
+            <motion.div
+              className="text-center space-y-8"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {/* Success Icon */}
+              <div className="w-20 h-20 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-10 h-10 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+
+              <div className="space-y-4">
+                <h1 className="text-section-title text-cloud-white">
+                  You're all set
+                </h1>
+                <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
+                  You have been successfully unsubscribed from all MOSBytes emails. 
+                  We're sorry to see you go.
+                </p>
+              </div>
+
+              {message && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 rounded-2xl bg-frost-blue/20 text-frost-blue border border-frost-blue/30 max-w-md mx-auto"
                 >
-                  Back to Admin Panel
-                </button>
-              ) : (
-                <button
-                  onClick={() => router.push('/')}
-                  className="w-full bg-gradient-to-r from-neon to-neon-purple text-white py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
-                >
-                  Return to Homepage
-                </button>
+                  {message}
+                </motion.div>
               )}
-              
-              <p className="text-sm text-gray-400">
-                Changed your mind? You can always{' '}
-                <button
-                  onClick={() => router.push('/#subscribe')}
-                  className="text-neon hover:underline"
-                >
-                  subscribe again
-                </button>
-              </p>
-            </div>
-          </motion.div>
+
+              <div className="space-y-6">
+                <div className="card-glass max-w-md mx-auto">
+                  <h3 className="text-card-title text-cloud-white mb-4">
+                    Changed your mind?
+                  </h3>
+                  <p className="text-body text-text-secondary mb-6">
+                    You can resubscribe anytime to continue receiving AI insights and tutorials.
+                  </p>
+                  <button
+                    onClick={handleResubscribe}
+                    disabled={loading}
+                    className="btn-primary w-full disabled:opacity-50"
+                  >
+                    {loading ? 'Resubscribing...' : 'Resubscribe'}
+                  </button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button
+                    onClick={() => router.push('/')}
+                    className="btn-secondary"
+                  >
+                    Back to Home
+                  </button>
+                  <button
+                    onClick={() => router.push('/blog')}
+                    className="btn-ghost"
+                  >
+                    Browse Tutorials
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </Layout>
     )
   }
 
   return (
-    <Layout title="Unsubscribe - MOSBytes" description="Unsubscribe from MOSBytes newsletter">
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center px-4">
-        <motion.div
-          className="max-w-md w-full bg-white/10 backdrop-blur-sm rounded-xl p-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
-            </div>
-            
-            <h1 className="text-2xl font-bold text-white mb-2">
-              Unsubscribe from MOSBytes
-            </h1>
-            
-            <p className="text-gray-300">
-              We're sorry to see you go. Please confirm your email to unsubscribe.
-            </p>
-          </div>
-
-          <form onSubmit={handleUnsubscribe} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon text-white placeholder-gray-400"
-                placeholder="Enter your email address"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="reason" className="block text-sm font-medium text-gray-300 mb-2">
-                Why are you unsubscribing? (Optional)
-              </label>
-              <select
-                id="reason"
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon text-white"
-              >
-                <option value="">Select a reason...</option>
-                {reasons.map((reasonOption) => (
-                  <option key={reasonOption} value={reasonOption} className="bg-gray-800">
-                    {reasonOption}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {message && (
-              <div className={`p-4 rounded-lg ${success ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>
-                {message}
+    <Layout 
+      title="Unsubscribe – MOSBytes"
+      description="Manage your email subscription preferences or unsubscribe from MOSBytes emails."
+    >
+      <div className="min-h-screen bg-deep-navy flex items-center justify-center py-12">
+        <div className="container-narrow">
+          <motion.div
+            className="text-center space-y-8"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Header */}
+            <div className="space-y-4">
+              <div className="w-16 h-16 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-8 h-8 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
               </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 px-6 rounded-lg transition-colors"
-            >
-              {loading ? 'Processing...' : 'Unsubscribe'}
-            </button>
-
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={() => isAdmin ? router.push('/admin/unsubscribed') : router.push('/')}
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                {isAdmin ? 'Cancel and return to admin panel' : 'Cancel and return to homepage'}
-              </button>
+              
+              <h1 className="text-section-title text-cloud-white">
+                Manage Your Subscription
+              </h1>
+              
+              <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
+                We're sorry to see you go. If you'd like to unsubscribe from our emails, 
+                please enter your email address below.
+              </p>
             </div>
-          </form>
 
-          <div className="mt-8 p-4 bg-blue-500/20 rounded-lg">
-            <h3 className="text-sm font-medium text-blue-300 mb-2">
-              Before you go...
-            </h3>
-            <p className="text-xs text-blue-200">
-              You can also update your email preferences instead of unsubscribing completely. 
-              Visit your{' '}
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="underline hover:no-underline"
-              >
-                dashboard
-              </button>
-              {' '}to customize what emails you receive.
-            </p>
-          </div>
-        </motion.div>
+            {/* Unsubscribe Form */}
+            <div className="card-glass max-w-md mx-auto">
+              <form onSubmit={handleUnsubscribe} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-cloud-white mb-3">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-modern"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+
+                {message && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`p-4 rounded-2xl text-sm ${
+                      message.includes('successfully') || message.includes('Welcome back')
+                        ? 'bg-frost-blue/20 text-frost-blue border border-frost-blue/30'
+                        : 'bg-red-500/20 text-red-300 border border-red-500/30'
+                    }`}
+                  >
+                    {message}
+                  </motion.div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-primary w-full disabled:opacity-50"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="w-4 h-4 loading-spinner"></div>
+                      <span>Processing...</span>
+                    </div>
+                  ) : (
+                    'Unsubscribe'
+                  )}
+                </button>
+              </form>
+            </div>
+
+            {/* Why are you leaving? */}
+            <div className="card-glass max-w-2xl mx-auto">
+              <h3 className="text-card-title text-cloud-white mb-4">
+                Before you go...
+              </h3>
+              <p className="text-body text-text-secondary mb-6">
+                We'd love to know why you're unsubscribing so we can improve our content.
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-4 text-left">
+                <div className="space-y-3">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2"
+                    />
+                    <span className="ml-3 text-sm text-text-secondary">Too many emails</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2"
+                    />
+                    <span className="ml-3 text-sm text-text-secondary">Content not relevant</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2"
+                    />
+                    <span className="ml-3 text-sm text-text-secondary">Never signed up</span>
+                  </label>
+                </div>
+                <div className="space-y-3">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2"
+                    />
+                    <span className="ml-3 text-sm text-text-secondary">Poor email design</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2"
+                    />
+                    <span className="ml-3 text-sm text-text-secondary">No longer interested in AI</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2"
+                    />
+                    <span className="ml-3 text-sm text-text-secondary">Other</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Alternative Actions */}
+            <div className="space-y-6">
+              <div className="text-center">
+                <p className="text-body text-text-secondary mb-4">
+                  Or would you prefer to:
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button
+                    onClick={() => router.push('/')}
+                    className="btn-secondary"
+                  >
+                    Back to Home
+                  </button>
+                  <button
+                    onClick={() => router.push('/blog')}
+                    className="btn-ghost"
+                  >
+                    Browse Tutorials
+                  </button>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <p className="text-caption">
+                  You can always resubscribe by visiting our homepage
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </Layout>
   )

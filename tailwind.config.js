@@ -8,66 +8,81 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Deep navy black backgrounds with dark blue gradients
-        'navy-black': '#0a0e1a',
-        'navy-900': '#0f1419',
-        'navy-800': '#1a1f2e',
-        'navy-700': '#1e2532',
-        'navy-600': '#252b3a',
-        'deep-navy': '#0c1220',
-        'dark-blue': '#1e293b',
+        // New "Simplify to Solve" Color Palette
+        'deep-navy': '#0B132B',      // Foundation / background tone
+        'steel-gray': '#1C2541',     // Content background
+        'frost-blue': '#5BC0BE',     // Highlight / accent tone
+        'cloud-white': '#F8FAFC',    // Text area / spacing balance
+        'graphite': '#2E3440',       // Secondary text / subtle lines
         
-        // Glowing blue accent (#2563EB)
-        'glow-blue': '#2563eb',
-        'glow-blue-light': '#3b82f6',
-        'glow-blue-dark': '#1d4ed8',
-        'blue-glow': '#2563eb',
+        // Extended palette for depth and variations
+        'deep-navy-light': '#1A2332', // Lighter navy for sections
+        'steel-light': '#2A3441',     // Lighter steel for borders
+        'frost-light': '#7DCDCB',     // Lighter frost blue for hover states
+        'frost-dark': '#4A9B99',      // Darker frost blue for active states
+        'cloud-soft': '#F1F5F9',     // Softer cloud white
+        'graphite-light': '#9CA3AF',  // Much lighter graphite for better readability
+        'text-secondary': '#D1D5DB',  // Light gray for secondary text
+        'text-muted': '#6B7280',      // Muted text for less important content
         
-        // Warm amber accent (#F59E0B)
-        'warm-amber': '#f59e0b',
-        'amber-glow': '#fbbf24',
-        'amber-subtle': '#f3a847',
-        
-        // Legacy colors (updated for new theme)
-        primary: '#2563eb',
-        accent: '#f59e0b',
-        light: '#f8fafc',
-        neon: '#2563eb',
-        'neon-purple': '#f59e0b',
+        // Legacy support (mapped to new colors)
+        primary: '#0B132B',
+        accent: '#5BC0BE',
+        light: '#F8FAFC',
+        dark: '#1C2541',
+      },
+      fontFamily: {
+        'heading': ['Manrope', 'system-ui', 'sans-serif'],
+        'body': ['Inter', 'system-ui', 'sans-serif'],
+        'mono': ['IBM Plex Mono', 'Menlo', 'Monaco', 'monospace'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1.6' }],
+        'sm': ['0.875rem', { lineHeight: '1.6' }],
+        'base': ['1rem', { lineHeight: '1.7' }],
+        'lg': ['1.125rem', { lineHeight: '1.7' }],
+        'xl': ['1.25rem', { lineHeight: '1.6' }],
+        '2xl': ['1.5rem', { lineHeight: '1.5' }],
+        '3xl': ['1.875rem', { lineHeight: '1.4' }],
+        '4xl': ['2.25rem', { lineHeight: '1.3' }],
+        '5xl': ['3rem', { lineHeight: '1.2' }],
+        '6xl': ['3.75rem', { lineHeight: '1.1' }],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'glow-blue': 'glow-blue 3s ease-in-out infinite alternate',
-        'glow-amber': 'glow-amber 2.5s ease-in-out infinite alternate',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'fade-in': 'fadeIn 0.6s ease-out',
+        'fade-in': 'fadeIn 0.8s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'gentle-float': 'gentleFloat 8s ease-in-out infinite',
+        'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        glow: {
-          '0%': { boxShadow: '0 0 20px rgba(37, 99, 235, 0.4)' },
-          '100%': { boxShadow: '0 0 30px rgba(37, 99, 235, 0.7)' },
-        },
-        'glow-blue': {
-          '0%': { boxShadow: '0 0 20px rgba(37, 99, 235, 0.4)' },
-          '100%': { boxShadow: '0 0 40px rgba(37, 99, 235, 0.8)' },
-        },
-        'glow-amber': {
-          '0%': { boxShadow: '0 0 15px rgba(245, 158, 11, 0.3)' },
-          '100%': { boxShadow: '0 0 25px rgba(245, 158, 11, 0.6)' },
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(100px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(40px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+        gentleFloat: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
+        pulseSoft: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.8' },
+        },
+      },
+      boxShadow: {
+        'soft': '0 4px 20px rgba(0, 0, 0, 0.08)',
+        'gentle': '0 8px 30px rgba(0, 0, 0, 0.12)',
+        'sky-glow': '0 0 20px rgba(0, 174, 239, 0.3)',
+        'card': '0 2px 15px rgba(0, 0, 0, 0.1)',
       },
     },
   },

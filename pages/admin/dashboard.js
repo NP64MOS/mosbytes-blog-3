@@ -51,61 +51,65 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <Layout title="Admin Dashboard - MOSBytes">
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon"></div>
+      <Layout title="Admin Dashboard – MOSBytes">
+        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 loading-spinner mx-auto"></div>
+            <p className="text-text-secondary">Loading dashboard...</p>
+          </div>
         </div>
       </Layout>
     )
   }
 
   return (
-    <Layout title="Admin Dashboard - MOSBytes">
-      <div className="min-h-screen bg-gradient-to-br from-light to-gray-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Layout title="Admin Dashboard – MOSBytes">
+      <div className="min-h-screen bg-deep-navy">
+        <div className="container-custom py-12">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-12 space-y-6 lg:space-y-0">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
+              className="space-y-2"
             >
-              <h1 className="text-3xl font-bold text-primary dark:text-white">
+              <h1 className="text-section-title text-cloud-white">
                 Admin Dashboard
               </h1>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-body text-text-secondary">
                 Welcome back, {user?.email}
               </p>
             </motion.div>
             
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => router.push('/admin/posts')}
-                className="bg-gradient-to-r from-neon to-neon-purple text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                className="btn-primary text-sm px-4 py-2"
               >
                 Manage Posts
               </button>
               <button
                 onClick={() => router.push('/admin/subscribers')}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                className="btn-secondary text-sm px-4 py-2"
               >
                 View Subscribers
               </button>
               <button
                 onClick={() => router.push('/admin/database')}
-                className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                className="bg-steel-gray hover:bg-steel-light text-cloud-white px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 Database
               </button>
               <button
                 onClick={() => router.push('/admin/unsubscribed')}
-                className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                className="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 Unsubscribed Users
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-graphite hover:bg-graphite-light text-cloud-white px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 Logout
               </button>
@@ -113,45 +117,45 @@ export default function AdminDashboard() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <motion.div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-sm"
+              className="card-glass hover-glow p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Subscribers</h3>
-              <p className="text-3xl font-bold text-neon">{stats?.totalSubscribers || 0}</p>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Total Subscribers</h3>
+              <p className="text-3xl font-bold text-frost-blue">{stats?.totalSubscribers || 0}</p>
             </motion.div>
 
             <motion.div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-sm"
+              className="card-glass hover-glow p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Monthly Revenue</h3>
-              <p className="text-3xl font-bold text-neon">${stats?.monthlyRevenue?.toFixed(2) || '0.00'}</p>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Monthly Revenue</h3>
+              <p className="text-3xl font-bold text-frost-blue">${stats?.monthlyRevenue?.toFixed(2) || '0.00'}</p>
             </motion.div>
 
             <motion.div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-sm"
+              className="card-glass hover-glow p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Posts</h3>
-              <p className="text-3xl font-bold text-neon">{stats?.totalPosts || 0}</p>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Total Posts</h3>
+              <p className="text-3xl font-bold text-frost-blue">{stats?.totalPosts || 0}</p>
             </motion.div>
 
             <motion.div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-sm"
+              className="card-glass hover-glow p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Growth Rate</h3>
-              <p className="text-3xl font-bold text-neon">{stats?.growthRate || 0}%</p>
+              <h3 className="text-sm font-medium text-text-muted mb-2">Growth Rate</h3>
+              <p className="text-3xl font-bold text-frost-blue">{stats?.growthRate || 0}%</p>
             </motion.div>
           </div>
 
@@ -159,53 +163,53 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Recent Subscribers */}
             <motion.div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-sm p-6"
+              className="card-glass hover-lift p-6"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <h3 className="text-lg font-semibold text-primary dark:text-white mb-4">
+              <h3 className="text-card-title text-cloud-white mb-6">
                 Recent Subscribers
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {stats?.recentSubscribers?.map((subscriber, index) => (
-                  <div key={subscriber.id} className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                  <div key={subscriber.id} className="flex justify-between items-center py-3 border-b border-graphite/20 last:border-b-0">
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">{subscriber.email}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{subscriber.plan} plan</p>
+                      <p className="font-medium text-cloud-white">{subscriber.email}</p>
+                      <p className="text-sm text-text-muted">{subscriber.plan} plan</p>
                     </div>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-text-muted">
                       {new Date(subscriber.subscribedAt).toLocaleDateString()}
                     </span>
                   </div>
-                )) || <p className="text-gray-500 dark:text-gray-400">No subscribers yet</p>}
+                )) || <p className="text-text-secondary">No subscribers yet</p>}
               </div>
             </motion.div>
 
             {/* Recent Posts */}
             <motion.div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-sm p-6"
+              className="card-glass hover-lift p-6"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <h3 className="text-lg font-semibold text-primary dark:text-white mb-4">
+              <h3 className="text-card-title text-cloud-white mb-6">
                 Recent Posts
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {stats?.recentPosts?.map((post, index) => (
-                  <div key={post.id} className="py-2 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
-                    <p className="font-medium text-gray-900 dark:text-white">{post.title}</p>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                  <div key={post.id} className="py-3 border-b border-graphite/20 last:border-b-0">
+                    <p className="font-medium text-cloud-white">{post.title}</p>
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-xs bg-frost-blue/20 text-frost-blue px-3 py-1 rounded-full">
                         {post.category}
                       </span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-text-muted">
                         {new Date(post.date).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
-                )) || <p className="text-gray-500 dark:text-gray-400">No posts yet</p>}
+                )) || <p className="text-text-secondary">No posts yet</p>}
               </div>
             </motion.div>
           </div>

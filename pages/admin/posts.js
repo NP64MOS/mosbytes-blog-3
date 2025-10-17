@@ -109,29 +109,32 @@ export default function AdminPosts() {
 
   if (loading) {
     return (
-      <Layout title="Manage Posts - MOSBytes">
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon"></div>
+      <Layout title="Manage Posts – MOSBytes">
+        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 loading-spinner mx-auto"></div>
+            <p className="text-text-secondary">Loading posts...</p>
+          </div>
         </div>
       </Layout>
     )
   }
 
   return (
-    <Layout title="Manage Posts - MOSBytes">
-      <div className="min-h-screen bg-gradient-to-br from-light to-gray-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Layout title="Manage Posts – MOSBytes">
+      <div className="min-h-screen bg-deep-navy">
+        <div className="container-custom py-12">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-primary dark:text-white">Manage Posts</h1>
-              <p className="text-gray-600 dark:text-gray-300">Create, edit, and delete blog posts</p>
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-12 space-y-6 lg:space-y-0">
+            <div className="space-y-2">
+              <h1 className="text-section-title text-cloud-white">Manage Posts</h1>
+              <p className="text-body text-text-secondary">Create, edit, and delete blog posts</p>
             </div>
             
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => router.push('/admin/dashboard')}
-                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="btn-secondary text-sm px-4 py-2"
               >
                 Back to Dashboard
               </button>
@@ -141,7 +144,7 @@ export default function AdminPosts() {
                   setEditingPost(null)
                   setFormData({ title: '', description: '', category: 'beginner', featured: false, content: '' })
                 }}
-                className="bg-gradient-to-r from-neon to-neon-purple text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                className="btn-primary text-sm px-4 py-2"
               >
                 New Post
               </button>
@@ -151,22 +154,22 @@ export default function AdminPosts() {
           {/* Post Form Modal */}
           {showForm && (
             <motion.div
-              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+              className="fixed inset-0 bg-deep-navy/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
               <motion.div
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+                className="card-glass w-full max-w-4xl max-h-[90vh] overflow-y-auto"
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
               >
-                <h2 className="text-2xl font-bold text-primary dark:text-white mb-6">
+                <h2 className="text-card-title text-cloud-white mb-6">
                   {editingPost ? 'Edit Post' : 'Create New Post'}
                 </h2>
                 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-cloud-white mb-3">
                       Title
                     </label>
                     <input
@@ -174,12 +177,12 @@ export default function AdminPosts() {
                       required
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="input-modern"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-cloud-white mb-3">
                       Description
                     </label>
                     <textarea
@@ -187,19 +190,19 @@ export default function AdminPosts() {
                       rows={3}
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="input-modern resize-none"
                     />
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-cloud-white mb-3">
                         Category
                       </label>
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="input-modern"
                       >
                         <option value="beginner">Beginner</option>
                         <option value="tutorial">Tutorial</option>
@@ -214,9 +217,9 @@ export default function AdminPosts() {
                           type="checkbox"
                           checked={formData.featured}
                           onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                          className="mr-2"
+                          className="w-4 h-4 text-frost-blue bg-steel-gray border-graphite rounded focus:ring-frost-blue focus:ring-2 mr-3"
                         />
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <span className="text-sm font-medium text-cloud-white">
                           Featured Post
                         </span>
                       </label>
@@ -224,7 +227,7 @@ export default function AdminPosts() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-cloud-white mb-3">
                       Content (MDX)
                     </label>
                     <textarea
@@ -232,22 +235,22 @@ export default function AdminPosts() {
                       rows={15}
                       value={formData.content}
                       onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      className="input-modern font-mono text-sm resize-none"
                       placeholder="Write your post content in MDX format..."
                     />
                   </div>
                   
-                  <div className="flex justify-end space-x-4 pt-4">
+                  <div className="flex justify-end space-x-4 pt-6">
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      className="btn-secondary"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="bg-gradient-to-r from-neon to-neon-purple text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                      className="btn-primary"
                     >
                       {editingPost ? 'Update Post' : 'Create Post'}
                     </button>
@@ -258,47 +261,47 @@ export default function AdminPosts() {
           )}
 
           {/* Posts List */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-primary dark:text-white">
+          <div className="card-glass overflow-hidden">
+            <div className="px-8 py-6 border-b border-graphite/20">
+              <h3 className="text-card-title text-cloud-white">
                 All Posts ({posts.length})
               </h3>
             </div>
             
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="divide-y divide-graphite/20">
               {posts.map((post) => (
-                <div key={post.id} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <div key={post.id} className="p-8 hover:bg-frost-blue/5 transition-colors">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h4 className="text-lg font-semibold text-primary dark:text-white">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <h4 className="text-lg font-semibold text-cloud-white">
                           {post.title}
                         </h4>
                         {post.featured && (
-                          <span className="bg-neon text-white text-xs px-2 py-1 rounded-full">
+                          <span className="bg-frost-blue text-deep-navy text-xs px-3 py-1 rounded-full font-medium">
                             Featured
                           </span>
                         )}
-                        <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded">
+                        <span className="bg-steel-gray text-text-secondary text-xs px-3 py-1 rounded-full">
                           {post.category}
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 mb-2">{post.description}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-text-secondary mb-3">{post.description}</p>
+                      <p className="text-sm text-text-muted">
                         {post.date} • {post.readTime}
                       </p>
                     </div>
                     
-                    <div className="flex space-x-2 ml-4">
+                    <div className="flex space-x-3 ml-6">
                       <button
                         onClick={() => handleEdit(post)}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition-colors"
+                        className="bg-frost-blue/20 hover:bg-frost-blue/30 text-frost-blue px-4 py-2 rounded-xl text-sm transition-colors border border-frost-blue/30"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(post.id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition-colors"
+                        className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-xl text-sm transition-colors border border-red-500/30"
                       >
                         Delete
                       </button>
@@ -308,8 +311,13 @@ export default function AdminPosts() {
               ))}
               
               {posts.length === 0 && (
-                <div className="p-12 text-center">
-                  <p className="text-gray-500 dark:text-gray-400">No posts found. Create your first post!</p>
+                <div className="p-16 text-center">
+                  <div className="w-16 h-16 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <p className="text-text-secondary">No posts found. Create your first post!</p>
                 </div>
               )}
             </div>
