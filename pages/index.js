@@ -180,7 +180,7 @@ export default function Home() {
                 </h2>
                 <div className="space-y-6">
                   <p className="text-body text-text-secondary">
-                    AI shouldn't overwhelm you. It should free you.
+                    AI shouldn&apos;t overwhelm you. It should free you.
                   </p>
                   <p className="text-body text-text-secondary">
                     We build tools that think, so you can focus on what matters.
@@ -322,7 +322,7 @@ export default function Home() {
                 Ready to <span className="gradient-text">simplify AI</span>?
               </h2>
               <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
-                Join thousands who've discovered that the smartest approach to AI
+                Join thousands who&apos;ve discovered that the smartest approach to AI
                 is also the simplest.
               </p>
               <Link href="/blog" className="btn-primary text-lg px-12 py-5 focus-calm magnetic-hover">

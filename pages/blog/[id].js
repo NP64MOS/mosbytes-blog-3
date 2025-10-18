@@ -69,7 +69,7 @@ export default function BlogPost() {
                   Article Not Found
                 </h1>
                 <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
-                  The article you're looking for doesn't exist or may have been moved.
+                  The article you&apos;re looking for doesn&apos;t exist or may have been moved.
                 </p>
               </div>
 

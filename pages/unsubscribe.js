@@ -107,11 +107,11 @@ export default function Unsubscribe() {
 
               <div className="space-y-4">
                 <h1 className="text-section-title text-cloud-white">
-                  You're all set
+                  You&apos;re all set
                 </h1>
                 <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
                   You have been successfully unsubscribed from all MOSBytes emails. 
-                  We're sorry to see you go.
+                  We&apos;re sorry to see you go.
                 </p>
               </div>
 
@@ -190,7 +190,7 @@ export default function Unsubscribe() {
               </h1>
               
               <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
-                We're sorry to see you go. If you'd like to unsubscribe from our emails, 
+                We&apos;re sorry to see you go. If you&apos;d like to unsubscribe from our emails, 
                 please enter your email address below.
               </p>
             </div>
@@ -249,7 +249,7 @@ export default function Unsubscribe() {
                 Before you go...
               </h3>
               <p className="text-body text-text-secondary mb-6">
-                We'd love to know why you're unsubscribing so we can improve our content.
+                We&apos;d love to know why you&apos;re unsubscribing so we can improve our content.
               </p>
               
               <div className="grid sm:grid-cols-2 gap-4 text-left">

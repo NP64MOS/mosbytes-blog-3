@@ -129,7 +129,7 @@ export default function SubscriptionSection() {
         {/* What's Included */}
         <div className="mb-6">
           <h4 className="text-sm font-bold blue-glow-text mb-3 text-center">
-            What's Included:
+            What&apos;s Included:
           </h4>
           <div className="grid grid-cols-2 gap-2 text-sm">
             {SUBSCRIPTION_PLANS.FREE.features.map((feature, index) => (
