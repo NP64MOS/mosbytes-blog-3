@@ -50,7 +50,7 @@ export default function Layout({
     { href: '/', label: 'Home' },
     { href: '/blog', label: 'Tutorials' },
     // { href: '/unsubscribe', label: 'Manage Subscription' }, // TEMPORARILY DISABLED
-    { href: '/admin/secure-access', label: 'Admin', className: 'text-sm opacity-60' }
+    { href: '/admin/login', label: 'Admin', className: 'text-sm opacity-60' }
   ]
   return (
     <>

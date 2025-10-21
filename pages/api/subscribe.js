@@ -1,6 +1,6 @@
-import { addSubscriber, updateSubscription } from '../../lib/subscription'
+import { addSubscriber } from '../../lib/db-adapter'
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' })
   }
@@ -11,24 +11,25 @@ export default function handler(req, res) {
     return res.status(400).json({ message: 'Email is required' })
   }
 
-  // Add subscriber
-  const result = addSubscriber(email, name)
-  
-  if (!result.success) {
-    return res.status(400).json({ message: result.message })
-  }
-
-  // If plan is specified and not free, update subscription
-  if (plan && plan !== 'free') {
-    const subscriptionResult = updateSubscription(email, plan)
-    if (!subscriptionResult.success) {
-      return res.status(400).json({ message: subscriptionResult.message })
+  try {
+    // Add subscriber
+    const result = await addSubscriber({ email, name, plan })
+    
+    if (!result.success) {
+      return res.status(400).json({ message: result.message })
     }
-  }
 
-  res.status(200).json({
-    success: true,
-    message: 'Successfully subscribed!',
-    subscriber: result.subscriber
-  })
+    res.status(200).json({
+      success: true,
+      message: 'Successfully subscribed!',
+      subscriber: result.subscriber
+    })
+  } catch (error) {
+    console.error('Subscribe API error:', error)
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to subscribe', 
+      error: error.message 
+    })
+  }
 }

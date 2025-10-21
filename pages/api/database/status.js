@@ -1,7 +1,7 @@
-import { readDatabase, getAnalytics } from '../../../lib/database'
+import { getDatabaseStatus, getAnalytics, getAllSubscribers, getAllPosts } from '../../../lib/db-adapter'
 import { verifyToken, isAdmin } from '../../../lib/auth'
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' })
   }
@@ -14,30 +14,39 @@ export default function handler(req, res) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  const db = readDatabase()
-  const analytics = getAnalytics()
-  
-  if (db && analytics) {
+  try {
+    const [dbStatus, analytics, subscribers, posts] = await Promise.all([
+      getDatabaseStatus(),
+      getAnalytics(),
+      getAllSubscribers(),
+      getAllPosts()
+    ])
+    
     res.status(200).json({
       success: true,
-      status: 'healthy',
+      status: dbStatus.connected ? 'healthy' : 'error',
       database: {
-        subscribers: db.subscribers.length,
-        posts: db.posts.length,
+        type: dbStatus.type,
+        environment: dbStatus.environment,
+        connected: dbStatus.connected,
+        subscribers: subscribers.length,
+        posts: posts.length,
         lastUpdated: new Date().toISOString()
       },
-      analytics: {
-        totalViews: analytics.totalViews,
-        totalSubscribers: analytics.totalSubscribers,
-        totalPosts: analytics.totalPosts,
-        monthlyGrowth: analytics.monthlyGrowth
+      analytics: analytics || {
+        totalViews: 0,
+        totalSubscribers: subscribers.length,
+        totalPosts: posts.length,
+        monthlyGrowth: 0
       }
     })
-  } else {
+  } catch (error) {
+    console.error('Database status error:', error)
     res.status(500).json({
       success: false,
       status: 'error',
-      message: 'Database connection failed'
+      message: 'Database connection failed',
+      error: error.message
     })
   }
 }

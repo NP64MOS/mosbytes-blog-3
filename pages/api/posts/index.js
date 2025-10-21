@@ -1,10 +1,15 @@
-import { getAllPosts, createPost } from '../../../lib/blog'
+import { getAllPosts, addPost } from '../../../lib/db-adapter'
 import { verifyToken, isAdmin } from '../../../lib/auth'
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const posts = getAllPosts()
-    return res.status(200).json(posts)
+    try {
+      const posts = await getAllPosts()
+      return res.status(200).json(posts)
+    } catch (error) {
+      console.error('Posts API error:', error)
+      return res.status(500).json({ message: 'Failed to fetch posts', error: error.message })
+    }
   }
 
   if (req.method === 'POST') {
@@ -37,12 +42,17 @@ export default function handler(req, res) {
       content
     }
 
-    const success = createPost(postData)
-    
-    if (success) {
-      return res.status(201).json({ message: 'Post created successfully', id })
-    } else {
-      return res.status(500).json({ message: 'Failed to create post' })
+    try {
+      const result = await addPost(postData)
+      
+      if (result) {
+        return res.status(201).json({ message: 'Post created successfully', id, post: result })
+      } else {
+        return res.status(500).json({ message: 'Failed to create post' })
+      }
+    } catch (error) {
+      console.error('Create post error:', error)
+      return res.status(500).json({ message: 'Failed to create post', error: error.message })
     }
   }
 
