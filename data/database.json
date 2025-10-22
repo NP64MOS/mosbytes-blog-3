@@ -59,6 +59,33 @@
     },
     {
       "id": "3",
+      "email": "bob.wilson@example.com",
+      "name": "Bob Wilson",
+      "subscribedAt": "2024-02-10T00:00:00.000Z",
+      "plan": "free",
+      "status": "active",
+      "tutorialsCompleted": 5,
+      "aiToolsUsed": 3,
+      "learningStreak": 3,
+      "joinedDate": "2024-02-10",
+      "lastActive": "2024-12-13T09:20:00.000Z",
+      "preferences": {
+        "newsletter": false,
+        "notifications": true,
+        "theme": "light"
+      },
+      "progress": {
+        "currentTutorial": "getting-started-with-ai",
+        "completedTutorials": [],
+        "bookmarkedPosts": [
+          "getting-started-with-ai",
+          "building-first-chatbot"
+        ],
+        "skillLevel": "beginner"
+      }
+    },
+    {
+      "id": "4",
       "email": "alice.johnson@example.com",
       "name": "Alice Johnson",
       "subscribedAt": "2024-02-15T00:00:00.000Z",
@@ -91,36 +118,34 @@
       }
     },
     {
-      "id": "1758103090576",
-      "email": "mossfon64@gmail.com",
-      "name": "",
-      "subscribedAt": "2025-09-17T09:58:10.576Z",
+      "id": "5",
+      "email": "charlie.brown@example.com",
+      "name": "Charlie Brown",
+      "subscribedAt": "2024-02-20T00:00:00.000Z",
       "plan": "free",
-      "status": "unsubscribed",
-      "tutorialsCompleted": 0,
-      "aiToolsUsed": 0,
-      "learningStreak": 0,
-      "joinedDate": "2025-09-17",
-      "lastActive": "2025-09-17T09:58:10.576Z",
+      "status": "active",
+      "tutorialsCompleted": 3,
+      "aiToolsUsed": 2,
+      "learningStreak": 1,
+      "joinedDate": "2024-02-20",
+      "lastActive": "2024-12-12T11:55:00.000Z",
       "preferences": {
-        "newsletter": false,
+        "newsletter": true,
         "notifications": false,
-        "theme": "auto"
+        "theme": "light"
       },
       "progress": {
-        "currentTutorial": null,
+        "currentTutorial": "getting-started-with-ai",
         "completedTutorials": [],
         "bookmarkedPosts": [],
         "skillLevel": "beginner"
-      },
-      "unsubscribedAt": "2025-09-19T05:46:57.962Z",
-      "unsubscribeReason": "Other"
+      }
     }
   ],
   "posts": [
     {
       "id": "getting-started-with-ai",
-      "title": "Getting Started with AI: A Beginner's Guide xxx",
+      "title": "Getting Started with AI: A Beginner's Guide",
       "description": "Learn the fundamentals of artificial intelligence and how it can transform your daily workflow.",
       "date": "2024-12-15",
       "category": "beginner",
@@ -134,26 +159,31 @@
       ],
       "views": 1250,
       "likes": 89,
-      "content": "# Welcome to the World of AI\n\nArtificial Intelligence is no longer a concept from science fiction—it's here, and it's transforming how we work, learn, and live. From the moment you wake up and check your phone to the recommendations you see on streaming platforms, AI is quietly working behind the scenes to make your life easier and more efficient.\n\n## What is Artificial Intelligence?\n\nAI refers to computer systems that can perform tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, perception, and language understanding. But what makes AI truly remarkable is its ability to improve over time through experience.\n\n### Types of AI You Encounter Daily\n\n**Narrow AI (Weak AI)**: This is what we interact with today. It's designed to perform specific tasks like:\n- Voice assistants (Siri, Alexa, Google Assistant)\n- Recommendation systems (Netflix, Spotify, Amazon)\n- Navigation apps (Google Maps, Waze)\n- Email spam filters\n- Photo tagging on social media\n\n**General AI (Strong AI)**: This is the sci-fi version that can perform any intellectual task a human can do. We're not there yet, but it's the ultimate goal.\n\n## How AI Can Transform Your Daily Workflow\n\n### 1. Automate Repetitive Tasks\nAI excels at handling mundane, repetitive work that consumes valuable time. Consider these applications:\n\n- **Email Management**: AI can sort, prioritize, and even draft responses to common inquiries\n- **Data Entry**: Optical Character Recognition (OCR) can extract information from documents automatically\n- **Scheduling**: AI assistants can coordinate meetings by analyzing everyone's calendars\n\n### 2. Enhance Decision Making\nAI doesn't replace human judgment—it enhances it by providing:\n\n- **Data Analysis**: Process vast amounts of information to identify patterns and trends\n- **Predictive Insights**: Forecast outcomes based on historical data\n- **Risk Assessment**: Evaluate potential problems before they occur\n\n### 3. Improve Communication\n- **Language Translation**: Break down language barriers in real-time\n- **Content Creation**: Generate drafts, summaries, and ideas to overcome writer's block\n- **Personalization**: Tailor messages and content to specific audiences\n\n## Getting Started: Your First Steps\n\n### Step 1: Identify Pain Points\nLook at your daily routine and ask:\n- What tasks take up most of your time?\n- What processes are repetitive and boring?\n- Where do you make the most errors?\n\n### Step 2: Start Small\nDon't try to revolutionize everything at once. Pick one area and experiment:\n\n- Try a writing assistant like Grammarly or ChatGPT for content creation\n- Use a scheduling tool like Calendly for appointment booking\n- Experiment with automation tools like Zapier or IFTTT\n\n### Step 3: Learn and Adapt\nAI tools improve with use. The more you interact with them, the better they become at understanding your preferences and needs.\n\n## Common Misconceptions About AI\n\n**\"AI will replace all human jobs\"**: While AI will change how we work, it's more likely to augment human capabilities rather than replace them entirely.\n\n**\"AI is too complex for regular people\"**: Modern AI tools are designed to be user-friendly. You don't need to understand the underlying algorithms to benefit from them.\n\n**\"AI is only for tech companies\"**: AI applications exist in every industry—healthcare, finance, education, retail, and more.\n\n## The Future is Collaborative\n\nThe most successful approach to AI isn't about humans versus machines—it's about humans working with machines. AI handles the data processing, pattern recognition, and routine tasks, while humans provide creativity, emotional intelligence, and strategic thinking.\n\n## Next Steps\n\nReady to dive deeper? Here are some resources to continue your AI journey:\n\n1. **Experiment with AI Tools**: Try ChatGPT, Claude, or Google Bard for various tasks\n2. **Take Online Courses**: Platforms like Coursera, edX, and Khan Academy offer beginner-friendly AI courses\n3. **Join Communities**: Connect with others learning about AI through forums, Discord servers, or local meetups\n4. **Stay Updated**: Follow AI news and developments to understand emerging trends\n\nRemember, the goal isn't to become an AI expert overnight. It's to gradually incorporate AI tools into your workflow in ways that make your life easier and more productive. Start small, stay curious, and don't be afraid to experiment.\n\nThe AI revolution is happening now, and by taking these first steps, you're positioning yourself to be part of it rather than left behind by it."
+      "content": "# Welcome to the World of AI\n\nArtificial Intelligence is no longer a concept from science fiction—it's here, and it's transforming how we work, learn, and live.\n\n## What is Artificial Intelligence?\n\nAI refers to computer systems that can perform tasks that typically require human intelligence..."
     },
     {
-      "id": "cdsvdfvdbs",
-      "title": "cdsvdfvdbs",
-      "description": "yjdnytntynyt",
-      "date": "2025-10-21",
-      "category": "beginner",
+      "id": "building-first-chatbot",
+      "title": "Building Your First Chatbot with Python",
+      "description": "Step-by-step tutorial on creating an intelligent chatbot using modern AI frameworks.",
+      "date": "2024-12-10",
+      "category": "tutorial",
       "featured": false,
-      "readTime": "5 min read",
+      "readTime": "8 min read",
       "author": "MOSBytes Team",
-      "tags": [],
-      "views": 0,
-      "likes": 0,
-      "content": "ytntyhbrtnhrty"
+      "tags": [
+        "python",
+        "chatbot",
+        "tutorial",
+        "coding"
+      ],
+      "views": 892,
+      "likes": 67,
+      "content": "# Building Your First AI Chatbot\n\nReady to create your own chatbot? In this tutorial, we'll build a simple but intelligent chatbot using Python..."
     }
   ],
   "analytics": {
     "totalViews": 5420,
-    "totalSubscribers": 3,
+    "totalSubscribers": 5,
     "totalPosts": 2,
     "monthlyGrowth": 12.5,
     "popularPosts": [
