@@ -1,7 +1,8 @@
-import { getPostById, updatePost, deletePost } from '../../../lib/blog'
+import { getPostById } from '../../../lib/blog'
+import { updatePost, deletePost } from '../../../lib/db-adapter'
 import { verifyToken, isAdmin } from '../../../lib/auth'
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const { id } = req.query
 
   if (req.method === 'GET') {
@@ -35,7 +36,7 @@ export default function handler(req, res) {
       content
     }
 
-    const success = updatePost(id, postData)
+    const success = await updatePost(id, postData)
     
     if (success) {
       return res.status(200).json({ message: 'Post updated successfully' })
@@ -45,7 +46,7 @@ export default function handler(req, res) {
   }
 
   if (req.method === 'DELETE') {
-    const success = deletePost(id)
+    const success = await deletePost(id)
     
     if (success) {
       return res.status(200).json({ message: 'Post deleted successfully' })
