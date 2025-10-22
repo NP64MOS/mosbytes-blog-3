@@ -6,31 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "init-db": "node scripts/init-database.js",
-    "backup-db": "cp data/database.json data/backup-$(date +%Y%m%d-%H%M%S).json"
+    "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
     "@neondatabase/serverless": "^1.0.2",
     "@next/mdx": "^14.2.32",
+    "autoprefixer": "^10",
     "date-fns": "^2.30.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.0",
     "framer-motion": "^10.16.0",
     "gray-matter": "^4.0.3",
     "next": "14.2.32",
     "next-auth": "^4.24.0",
+    "postcss": "^8",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.0",
     "react-intersection-observer": "^9.5.0",
-    "react-markdown": "^9.0.0"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.0",
-    "postcss": "^8",
+    "react-markdown": "^9.0.0",
     "tailwindcss": "^3"
   }
 }
