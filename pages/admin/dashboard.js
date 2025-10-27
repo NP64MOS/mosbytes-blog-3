@@ -52,10 +52,10 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <Layout title="Admin Dashboard – MOSBytes">
-        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="w-12 h-12 loading-spinner mx-auto"></div>
-            <p className="text-text-secondary">Loading dashboard...</p>
+            <p className="text-gray-600">Loading dashboard...</p>
           </div>
         </div>
       </Layout>
@@ -64,8 +64,8 @@ export default function AdminDashboard() {
 
   return (
     <Layout title="Admin Dashboard – MOSBytes">
-      <div className="min-h-screen bg-deep-navy">
-        <div className="container-custom py-12">
+      <div className="min-h-screen paper-bg">
+        <div className="container-clean py-12">
           {/* Header */}
           <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-12 space-y-6 lg:space-y-0">
             <motion.div
@@ -74,7 +74,7 @@ export default function AdminDashboard() {
               transition={{ duration: 0.6 }}
               className="space-y-2"
             >
-              <h1 className="text-section-title text-cloud-white">
+              <h1 className="text-section-title text-gray-900">
                 Admin Dashboard
               </h1>
               <p className="text-body text-text-secondary">

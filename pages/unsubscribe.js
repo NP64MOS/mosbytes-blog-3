@@ -90,7 +90,7 @@ export default function Unsubscribe() {
         title="Unsubscribed Successfully – MOSBytes"
         description="You have been successfully unsubscribed from MOSBytes emails."
       >
-        <div className="min-h-screen bg-deep-navy flex items-center justify-center py-12">
+        <div className="min-h-screen flex items-center justify-center py-12">
           <div className="container-narrow">
             <motion.div
               className="text-center space-y-8"
@@ -99,17 +99,17 @@ export default function Unsubscribe() {
               transition={{ duration: 0.8 }}
             >
               {/* Success Icon */}
-              <div className="w-20 h-20 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto">
-                <svg className="w-10 h-10 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-section-title text-cloud-white">
+                <h1 className="text-section-title text-gray-900">
                   You&apos;re all set
                 </h1>
-                <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
+                <p className="text-body-large text-gray-600 max-w-2xl mx-auto">
                   You have been successfully unsubscribed from all MOSBytes emails. 
                   We&apos;re sorry to see you go.
                 </p>
@@ -169,7 +169,7 @@ export default function Unsubscribe() {
       title="Unsubscribe – MOSBytes"
       description="Manage your email subscription preferences or unsubscribe from MOSBytes emails."
     >
-      <div className="min-h-screen bg-deep-navy flex items-center justify-center py-12">
+      <div className="min-h-screen flex items-center justify-center py-12">
         <div className="container-narrow">
           <motion.div
             className="text-center space-y-8"
@@ -179,17 +179,17 @@ export default function Unsubscribe() {
           >
             {/* Header */}
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto">
-                <svg className="w-8 h-8 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               
-              <h1 className="text-section-title text-cloud-white">
+              <h1 className="text-section-title text-gray-900">
                 Manage Your Subscription
               </h1>
               
-              <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
+              <p className="text-body-large text-gray-600 max-w-2xl mx-auto">
                 We&apos;re sorry to see you go. If you&apos;d like to unsubscribe from our emails, 
                 please enter your email address below.
               </p>

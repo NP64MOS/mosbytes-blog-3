@@ -75,7 +75,7 @@ export default function AdminLogin() {
 
   return (
     <Layout title="Admin Login – MOSBytes">
-      <div className="min-h-screen bg-deep-navy flex items-center justify-center py-12">
+      <div className="min-h-screen flex items-center justify-center py-12">
         <div className="container-narrow">
           <motion.div
             className="text-center space-y-8"
@@ -85,17 +85,17 @@ export default function AdminLogin() {
           >
             {/* Header */}
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-frost-blue/20 rounded-full flex items-center justify-center mx-auto">
-                <svg className="w-8 h-8 text-frost-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
               
-              <h1 className="text-section-title text-cloud-white">
+              <h1 className="text-section-title text-gray-900">
                 Administrator Login
               </h1>
               
-              <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
+              <p className="text-body-large text-gray-600 max-w-2xl mx-auto">
                 Enter your administrator credentials to access the dashboard.
               </p>
             </div>

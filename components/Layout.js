@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Footer from './Footer'
 
 export default function Layout({ 
   children, 
@@ -100,27 +101,27 @@ export default function Layout({
       </Head>
       
       <div className="min-h-screen flex flex-col">
-        <header className={`fixed w-full top-0 z-50 transition-all duration-500 ${
+        <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-deep-navy/90 backdrop-blur-md shadow-gentle border-b border-graphite/20' 
+            ? 'bg-white/95 backdrop-blur-md shadow-paper border-b border-gray-100' 
             : 'bg-transparent'
         }`}>
-          <nav className="container-custom">
+          <nav className="container-clean">
             <div className="flex justify-between items-center h-20">
               {/* Logo */}
-              <Link href="/" className="text-2xl font-bold font-heading hover:text-frost-blue transition-colors z-50 relative">
+              <Link href="/" className="text-2xl font-bold hover:text-blue-600 transition-colors z-50 relative">
                 <span className="gradient-text">
                   MOSBytes
                 </span>
               </Link>
 
               {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-8">
+              <div className="hidden md:flex items-center space-x-2">
                 {navigationItems.map((item) => (
                   <Link 
                     key={item.href}
                     href={item.href} 
-                    className={`text-text-secondary hover:text-frost-blue transition-colors font-medium ${item.className || ''}`}
+                    className={`nav-link ${item.className || ''}`}
                   >
                     {item.label}
                   </Link>
@@ -134,7 +135,7 @@ export default function Layout({
                     e.stopPropagation()
                     setMobileMenuOpen(!mobileMenuOpen)
                   }}
-                  className="text-text-secondary hover:text-frost-blue transition-colors p-2 rounded-xl hover:bg-frost-blue/10"
+                  className="text-gray-600 hover:text-blue-600 transition-colors p-2 rounded-xl hover:bg-blue-50"
                   aria-label="Toggle mobile menu"
                 >
                   <svg 
@@ -163,7 +164,7 @@ export default function Layout({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="fixed inset-0 bg-deep-navy/80 backdrop-blur-sm md:hidden"
+                    className="fixed inset-0 bg-black/20 backdrop-blur-sm md:hidden"
                     style={{ top: '80px' }}
                     onClick={() => setMobileMenuOpen(false)}
                   />
@@ -177,7 +178,7 @@ export default function Layout({
                     className="absolute top-full left-0 right-0 md:hidden z-40"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="bg-steel-gray/95 backdrop-blur-md border-t border-graphite/20 shadow-gentle mx-6 rounded-b-3xl">
+                    <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-card mx-6 rounded-b-3xl">
                       <div className="py-8">
                         {navigationItems.map((item, index) => (
                           <motion.div
@@ -189,7 +190,7 @@ export default function Layout({
                             <Link
                               href={item.href}
                               onClick={() => setMobileMenuOpen(false)}
-                              className={`flex items-center px-8 py-4 text-text-secondary hover:text-frost-blue hover:bg-frost-blue/10 transition-all duration-300 font-medium rounded-2xl mx-4 ${item.className || ''}`}
+                              className={`flex items-center px-8 py-4 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 font-medium rounded-2xl mx-4 ${item.className || ''}`}
                             >
                               <span className="text-base font-medium">{item.label}</span>
                             </Link>
@@ -207,6 +208,8 @@ export default function Layout({
         <main className="flex-1 pt-20">
           {children}
         </main>
+
+        <Footer />
       </div>
     </>
   )
