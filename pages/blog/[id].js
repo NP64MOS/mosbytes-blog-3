@@ -217,7 +217,6 @@ export default function BlogPost() {
                 }}
               >
                 {post.content}
-                {post.content}
               </ReactMarkdown>
             </div>
             </motion.article>

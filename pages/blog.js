@@ -15,7 +15,12 @@ export default function Blog() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/posts')
+      // Add minimum loading time for better UX
+      const [response] = await Promise.all([
+        fetch('/api/posts'),
+        new Promise(resolve => setTimeout(resolve, 800)) // Minimum 800ms loading
+      ])
+      
       if (response.ok) {
         const data = await response.json()
         setBlogPosts(data)
@@ -93,39 +98,77 @@ export default function Blog() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="relative max-w-md mx-auto">
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input-clean pl-12"
-                />
-                <svg className="absolute left-4 top-4 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              
-              <div className="flex flex-wrap justify-center gap-3">
-                {categories.map(category => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-6 py-3 rounded-2xl font-medium transition-all duration-200 ${
-                      selectedCategory === category
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600 border border-gray-200'
-                    }`}
-                  >
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </button>
-                ))}
-              </div>
+              {loading ? (
+                <div className="space-y-6">
+                  <div className="relative max-w-md mx-auto">
+                    <div className="h-12 bg-gray-200 rounded-2xl animate-pulse"></div>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {[1, 2, 3, 4, 5].map((item) => (
+                      <div key={item} className="h-12 bg-gray-200 rounded-2xl w-20 animate-pulse"></div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="relative max-w-md mx-auto">
+                    <input
+                      type="text"
+                      placeholder="Search articles..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="input-clean pl-12"
+                    />
+                    <svg className="absolute left-4 top-4 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {categories.map(category => (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={`px-6 py-3 rounded-2xl font-medium transition-all duration-200 ${
+                          selectedCategory === category
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600 border border-gray-200'
+                        }`}
+                      >
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </motion.div>
 
             {/* Blog Posts */}
-            <div className="space-y-8 max-w-4xl mx-auto">
-              {filteredPosts.map((post, index) => (
+            {loading ? (
+              <div className="space-y-8 max-w-4xl mx-auto">
+                {/* Loading Skeleton */}
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="card-paper animate-pulse">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="h-4 bg-gray-200 rounded w-20"></div>
+                        <div className="h-4 bg-gray-200 rounded w-4"></div>
+                        <div className="h-4 bg-gray-200 rounded w-16"></div>
+                      </div>
+                      <div className="h-6 bg-gray-200 rounded-full w-20 mt-2 sm:mt-0"></div>
+                    </div>
+                    <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+                    <div className="space-y-2 mb-6">
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded w-24"></div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-8 max-w-4xl mx-auto">
+                {filteredPosts.map((post, index) => (
                 <motion.article 
                   key={post.id}
                   className={`card-paper hover-lift group ${
@@ -172,10 +215,11 @@ export default function Blog() {
                     </svg>
                   </Link>
                 </motion.article>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
-            {filteredPosts.length === 0 && (
+            {!loading && filteredPosts.length === 0 && (
               <motion.div 
                 className="text-center py-16"
                 initial={{ opacity: 0 }}
@@ -195,7 +239,7 @@ export default function Blog() {
             )}
 
             {/* Load More Button */}
-            {filteredPosts.length > 0 && (
+            {!loading && filteredPosts.length > 0 && (
               <motion.div 
                 className="text-center mt-16"
                 initial={{ opacity: 0 }}

@@ -1,73 +1,23 @@
 import Layout from '../components/Layout'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 
-// ✅ SEO Metadata (Next.js 13+)
+// ✅ SEO Metadata
 export const metadata = {
   title: "MOSBytes | Simplify to Solve — Learn AI the Simple Way",
   description:
-    "MOSBytes helps you learn and apply AI without the overwhelm. Simple, human-centered tutorials that turn complexity into clarity.",
+    "Learn AI without the overwhelm. MOSBytes turns complexity into clarity with simple, human-centered learning.",
   keywords: [
     "AI made simple",
     "learn AI easily",
-    "AI for beginners",
-    "AI productivity",
-    "simplify to solve",
-    "AI tools for creators",
-    "AI tutorials",
     "AI for everyone",
+    "simplify to solve",
+    "AI tools",
+    "AI tutorials",
   ],
 }
 
 export default function Home() {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-
-  const handleSubscribe = async (e) => {
-    e.preventDefault()
-
-    if (!email) {
-      setMessage('Please enter your email address')
-      return
-    }
-
-    setLoading(true)
-    setMessage('')
-
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          name,
-          plan: 'free',
-        }),
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        setSubscribed(true)
-        setMessage('Welcome to MOSBytes! Check your email for next steps.')
-        setEmail('')
-        setName('')
-      } else {
-        setMessage(data.message || 'Something went wrong. Please try again.')
-      }
-    } catch (error) {
-      setMessage('Network error. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
     <Layout>
       {/* 🌿 Hero Section */}
@@ -87,7 +37,7 @@ export default function Home() {
 
             {/* Subtitle */}
             <p className="text-body-large mb-12 max-w-2xl mx-auto text-gray-700">
-              AI doesn’t have to be complicated. We make it simple, human, and ready to help you grow.
+              AI made simple — human, clear, and ready to help you grow.
             </p>
 
             {/* CTA Buttons */}
@@ -138,9 +88,8 @@ export default function Home() {
               Why <span className="gradient-text">Simplify</span>?
             </h2>
             <p className="text-body-large max-w-3xl mx-auto text-gray-700">
-              We believe clarity leads to better thinking — and better outcomes.
-              AI shouldn’t overwhelm you; it should empower you.
-              We design tools and stories that help you think clearly, learn deeply, and grow confidently.
+              Clarity creates progress.
+              We turn complex ideas into tools that empower people — not overwhelm them.
             </p>
           </motion.div>
 
@@ -148,8 +97,7 @@ export default function Home() {
             {[
               {
                 title: 'Clarity First',
-                description:
-                  'Complex ideas become powerful when they’re simple to understand. We translate AI into plain language anyone can use.',
+                description: 'Simple ideas are powerful. We make AI easy to understand and use.',
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -162,9 +110,8 @@ export default function Home() {
                 ),
               },
               {
-                title: 'Grow with Simplicity',
-                description:
-                  'Learn step by step, at your own rhythm. Each lesson builds on the last — so growth feels natural, not forced.',
+                title: 'Grow Simply',
+                description: 'Learn step by step. Each byte builds confidence and clarity.',
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -173,8 +120,7 @@ export default function Home() {
               },
               {
                 title: 'Human First',
-                description:
-                  'We design with empathy. Because technology should adapt to people, not the other way around.',
+                description: 'Tech should adapt to people, not the other way around.',
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -220,8 +166,7 @@ export default function Home() {
               Learn AI the <span className="gradient-text">Simple Way</span>
             </h2>
             <p className="text-body-large max-w-3xl mx-auto text-gray-700">
-              From everyday creators to curious learners, MOSBytes helps you unlock the power of AI —
-              without the overwhelm. Practical guides, clear frameworks, and human-centered learning that actually sticks.
+              Learn, apply, and grow with AI — without the noise.
             </p>
           </motion.div>
 
@@ -235,23 +180,10 @@ export default function Home() {
               viewport={{ once: true }}
             >
               {[
-                {
-                  title: 'Step-by-Step Tutorials',
-                  description: 'Learn by doing — simple steps, real results.',
-                },
-                {
-                  title: 'Real-World Applications',
-                  description: 'Discover how AI solves meaningful problems in work, business, and creativity.',
-                },
-                {
-                  title: 'Curated Tool Picks',
-                  description: 'Skip the noise. Use tools that actually help you get things done.',
-                },
-                {
-                  title: 'Community of Simplicity',
-                  description:
-                    'Grow alongside a community that values clarity, curiosity, and purpose.',
-                },
+                { title: 'Step-by-Step Guides', description: 'Simple steps. Real results.' },
+                { title: 'Real Use Cases', description: 'AI that solves real problems.' },
+                { title: 'Curated Tools', description: 'Skip the noise. Use what works.' },
+                { title: 'Community', description: 'Learn with others who love simplicity.' },
               ].map((feature, index) => (
                 <motion.div
                   key={index}
@@ -262,12 +194,7 @@ export default function Home() {
                   viewport={{ once: true }}
                 >
                   <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -323,9 +250,8 @@ export default function Home() {
               Ready to <span className="gradient-text">Simplify AI</span>?
             </h2>
             <p className="text-body-large mb-12 max-w-2xl mx-auto text-gray-700">
-              Join creators and learners who’ve discovered that the simplest way to use AI —
-              is often the most powerful.
-              Start learning today, one simple byte at a time.
+              The smartest way to use AI — is the simplest.
+              Start learning today.
             </p>
             <Link href="/blog" className="btn-primary text-lg px-12 py-5 hover-glow">
               Start Your Journey
