@@ -71,10 +71,10 @@ export default function AdminSubscribers() {
   if (loading) {
     return (
       <Layout title="Manage Subscribers – MOSBytes">
-        <div className="min-h-screen bg-deep-navy flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="w-12 h-12 loading-spinner mx-auto"></div>
-            <p className="text-text-secondary">Loading subscribers...</p>
+            <p className="text-gray-600">Loading subscribers...</p>
           </div>
         </div>
       </Layout>

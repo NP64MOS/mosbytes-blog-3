@@ -102,15 +102,15 @@ export default function AdminLogin() {
 
             {/* Login Form */}
             {blocked ? (
-              <div className="card-glass max-w-md mx-auto">
+              <div className="card-paper max-w-md mx-auto">
                 <div className="text-center space-y-4">
-                  <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto">
-                    <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-cloud-white">Access Temporarily Blocked</h3>
-                  <p className="text-text-secondary">Too many failed attempts. Please wait 15 minutes.</p>
+                  <h3 className="text-lg font-semibold text-gray-900">Access Temporarily Blocked</h3>
+                  <p className="text-gray-600">Too many failed attempts. Please wait 15 minutes.</p>
                   <button
                     onClick={() => router.push('/')}
                     className="btn-secondary w-full"
@@ -120,10 +120,10 @@ export default function AdminLogin() {
                 </div>
               </div>
             ) : (
-              <div className="card-glass max-w-md mx-auto">
+              <div className="card-paper max-w-md mx-auto">
                 <form onSubmit={handleLogin} className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-cloud-white mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3">
                       Username
                     </label>
                     <input
@@ -131,14 +131,14 @@ export default function AdminLogin() {
                       required
                       value={credentials.username}
                       onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-                      className="input-modern"
+                      className="input-clean"
                       placeholder="Enter username"
                       autoComplete="username"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-cloud-white mb-3">
+                    <label className="block text-sm font-medium text-gray-900 mb-3">
                       Password
                     </label>
                     <input
@@ -146,7 +146,7 @@ export default function AdminLogin() {
                       required
                       value={credentials.password}
                       onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                      className="input-modern"
+                      className="input-clean"
                       placeholder="Enter password"
                       autoComplete="current-password"
                     />
@@ -156,7 +156,7 @@ export default function AdminLogin() {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="p-4 rounded-2xl text-sm bg-red-500/20 text-red-300 border border-red-500/30"
+                      className="p-4 rounded-2xl text-sm bg-red-100 text-red-700 border border-red-300"
                     >
                       {error}
                     </motion.div>
@@ -178,8 +178,8 @@ export default function AdminLogin() {
                   </button>
                 </form>
 
-                <div className="mt-6 p-4 bg-frost-blue/10 rounded-2xl border border-frost-blue/20">
-                  <p className="text-caption text-frost-blue text-center">
+                <div className="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-200">
+                  <p className="text-caption text-blue-600 text-center">
                     🔒 Secure admin access for MOSBytes administrators
                   </p>
                 </div>

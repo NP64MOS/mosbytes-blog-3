@@ -77,7 +77,7 @@ export default function AdminDashboard() {
               <h1 className="text-section-title text-gray-900">
                 Admin Dashboard
               </h1>
-              <p className="text-body text-text-secondary">
+              <p className="text-body text-gray-600">
                 Welcome back, {user?.email}
               </p>
             </motion.div>
@@ -97,19 +97,19 @@ export default function AdminDashboard() {
               </button>
               <button
                 onClick={() => router.push('/admin/database')}
-                className="bg-steel-gray hover:bg-steel-light text-cloud-white px-4 py-2 rounded-xl transition-colors text-sm"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 Database
               </button>
               <button
                 onClick={() => router.push('/admin/unsubscribed')}
-                className="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-4 py-2 rounded-xl transition-colors text-sm"
+                className="bg-red-100 hover:bg-red-200 text-red-700 border border-red-300 px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 Unsubscribed Users
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-graphite hover:bg-graphite-light text-cloud-white px-4 py-2 rounded-xl transition-colors text-sm"
+                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-xl transition-colors text-sm"
               >
                 Logout
               </button>
@@ -119,43 +119,43 @@ export default function AdminDashboard() {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <motion.div
-              className="card-glass hover-glow p-6"
+              className="card-paper hover-lift p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-sm font-medium text-text-muted mb-2">Total Subscribers</h3>
-              <p className="text-3xl font-bold text-frost-blue">{stats?.totalSubscribers || 0}</p>
+              <h3 className="text-sm font-medium text-gray-500 mb-2">Total Subscribers</h3>
+              <p className="text-3xl font-bold text-blue-600">{stats?.totalSubscribers || 0}</p>
             </motion.div>
 
             <motion.div
-              className="card-glass hover-glow p-6"
+              className="card-paper hover-lift p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-sm font-medium text-text-muted mb-2">Monthly Revenue</h3>
-              <p className="text-3xl font-bold text-frost-blue">${stats?.monthlyRevenue?.toFixed(2) || '0.00'}</p>
+              <h3 className="text-sm font-medium text-gray-500 mb-2">Monthly Revenue</h3>
+              <p className="text-3xl font-bold text-blue-600">${stats?.monthlyRevenue?.toFixed(2) || '0.00'}</p>
             </motion.div>
 
             <motion.div
-              className="card-glass hover-glow p-6"
+              className="card-paper hover-lift p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-sm font-medium text-text-muted mb-2">Total Posts</h3>
-              <p className="text-3xl font-bold text-frost-blue">{stats?.totalPosts || 0}</p>
+              <h3 className="text-sm font-medium text-gray-500 mb-2">Total Posts</h3>
+              <p className="text-3xl font-bold text-blue-600">{stats?.totalPosts || 0}</p>
             </motion.div>
 
             <motion.div
-              className="card-glass hover-glow p-6"
+              className="card-paper hover-lift p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h3 className="text-sm font-medium text-text-muted mb-2">Growth Rate</h3>
-              <p className="text-3xl font-bold text-frost-blue">{stats?.growthRate || 0}%</p>
+              <h3 className="text-sm font-medium text-gray-500 mb-2">Growth Rate</h3>
+              <p className="text-3xl font-bold text-blue-600">{stats?.growthRate || 0}%</p>
             </motion.div>
           </div>
 
@@ -163,53 +163,53 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Recent Subscribers */}
             <motion.div
-              className="card-glass hover-lift p-6"
+              className="card-paper hover-lift p-6"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <h3 className="text-card-title text-cloud-white mb-6">
+              <h3 className="text-card-title text-gray-900 mb-6">
                 Recent Subscribers
               </h3>
               <div className="space-y-4">
                 {stats?.recentSubscribers?.map((subscriber, index) => (
-                  <div key={subscriber.id} className="flex justify-between items-center py-3 border-b border-graphite/20 last:border-b-0">
+                  <div key={subscriber.id} className="flex justify-between items-center py-3 border-b border-gray-200 last:border-b-0">
                     <div>
-                      <p className="font-medium text-cloud-white">{subscriber.email}</p>
-                      <p className="text-sm text-text-muted">{subscriber.plan} plan</p>
+                      <p className="font-medium text-gray-900">{subscriber.email}</p>
+                      <p className="text-sm text-gray-500">{subscriber.plan} plan</p>
                     </div>
-                    <span className="text-xs text-text-muted">
+                    <span className="text-xs text-gray-500">
                       {new Date(subscriber.subscribedAt).toLocaleDateString()}
                     </span>
                   </div>
-                )) || <p className="text-text-secondary">No subscribers yet</p>}
+                )) || <p className="text-gray-600">No subscribers yet</p>}
               </div>
             </motion.div>
 
             {/* Recent Posts */}
             <motion.div
-              className="card-glass hover-lift p-6"
+              className="card-paper hover-lift p-6"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <h3 className="text-card-title text-cloud-white mb-6">
+              <h3 className="text-card-title text-gray-900 mb-6">
                 Recent Posts
               </h3>
               <div className="space-y-4">
                 {stats?.recentPosts?.map((post, index) => (
-                  <div key={post.id} className="py-3 border-b border-graphite/20 last:border-b-0">
-                    <p className="font-medium text-cloud-white">{post.title}</p>
+                  <div key={post.id} className="py-3 border-b border-gray-200 last:border-b-0">
+                    <p className="font-medium text-gray-900">{post.title}</p>
                     <div className="flex justify-between items-center mt-2">
-                      <span className="text-xs bg-frost-blue/20 text-frost-blue px-3 py-1 rounded-full">
+                      <span className="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
                         {post.category}
                       </span>
-                      <span className="text-xs text-text-muted">
+                      <span className="text-xs text-gray-500">
                         {new Date(post.date).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
-                )) || <p className="text-text-secondary">No posts yet</p>}
+                )) || <p className="text-gray-600">No posts yet</p>}
               </div>
             </motion.div>
           </div>
